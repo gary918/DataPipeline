@@ -46,6 +46,8 @@ Azure Blob storage is Microsoft's object storage solution for the cloud. Blob st
 Azure Key Vault is a tool for securely storing and accessing secrets. A secret is anything that you want to tightly control access to, such as API keys, passwords, or certificates. A vault is a logical group of secrets.
 # Architecture
 <img src="images/architecture.PNG" alt="architecture">
+<center>Figure 1. Architecture</center>
+
 As you can see in the diagram of our sample project, we are using Azure Data Factory pipeline ("DataPipeline") to coordinate the activities for data ingestion and data preparation. The Azure Data Factory pipeline can be triggered manually or by pre-defined triggers (Schedule, Tumbling Window or Event). Also, Azure Pipeline can trigger the Azure Data Factory pipeline if the conditions are met.
 
 In the sample project, "DataPipeline" consists 2 activities, "Copy Data" and "Databricks Notebook". "Copy Data" copies the data from the original storage where the raw data or source data is stored, to Azure Blob Storage. The original storage could be on-premise or cloud storage such as AWS S3. After being copied to Azure Blob Storage, the data can be easily used by the following activities.
