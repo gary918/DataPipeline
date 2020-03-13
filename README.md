@@ -20,30 +20,47 @@ Azure Key Vault is a tool for securely storing and accessing secrets. A secret i
 # Architecture
 <img src="images/architecture.PNG" alt="architecture">
 As you can see in the diagram of our sample project, we are using Azure Data Factory pipeline ("DataPipeline") to coordinate the activities for data ingestion and data preparation. The Azure Data Factory pipeline can be triggered manually or by pre-defined triggers (Schedule, Tumbling Window or Event). Also, Azure Pipeline can trigger the Azure Data Factory pipeline if the conditions are met.
+
 In the sample project, "DataPipeline" consists 2 activities, "Copy Data" and "Databricks Notebook". "Copy Data" copies the data from the original storage where the raw data or source data is stored, to Azure Blob Storage. The original storage could be on-premise or cloud storage such as AWS S3. After being copied to Azure Blob Storage, the data can be easily used by the following activities.
+
 The second activity, "Databricks Notebook" will activate a Jupyter Notebook file running on Azure Databricks. The Jupyter Notebook file will access the data copied to Azure Blob Storage and use it to train a simple machine learning model.
+
 On Azure Databricks, we can use Jupyter Notebook files to prepare the data, train a machine learning model and consume it. 
+
 The pipeline can also be extended by adding more activities in order to do more data processing jobs. 
+
 Azure Repos works for source code version control. 
+
 Azure Pipelines implements CI/CD pipelines for this use case. Starting from an Azure Resource Group for 'Development', if needed, Azure Pipelines can help quickly deploy another Azure Resource Group for 'Test' or 'Production' by using different versions of variables and parameters.
 
 ## Version control
 Azure Repos is used for the source file version control.
+
 Azure Data Factory can be integrated with an Azure Repos Git organization repository for source control, collaboration, versioning, and so on. In order to do version control of Azure Data Factory pipelines, we can create a development data factory configured with Azure Repos Git, allowing relevant developers to author Azure Data Factory resources like pipelines and datasets. The developers can make changes in their feature branches and create a pull request from their feature branch to the master or collaboration branch to get their changes reviewed by peers. After a pull request is approved and changes are merged in the master branch, the changes can be published as Azure Resource Manager templates to "adf-publish" branch in the development factory.
+
 Also, Git version control can be enabled for the Jupyter Notebook files running on Azure Databricks.
 ## Continueous Integration
 Continuous integration (CI) is a development practice where developers integrate code into a shared repository frequently, preferably several times a day.
+
 The sample project doesn't include the process of code linting and unit tests which can be done by using flake8 and pytest.
-In this CI stage of this sample, the pipeline "checkout" the notebook file and publish it as an artifact named "notebook". In the meantime, the Azure Data Factory pipeline Resource Manager templates are also checked out through "adf_publish" branch and published as "adf-pipelines" artifact. Those two artifacts will be used by the following steps. 
+
+In the CI stage of this sample, the pipeline "checkout" the notebook file and publish it as an artifact named "notebook". In the meantime, the Azure Data Factory pipeline Resource Manager templates are also checked out through "adf_publish" branch and published as "adf-pipelines" artifact. Those two artifacts will be used by the following steps. 
 ## Contineous Deployment
 Continuous deployment (CD) is a strategy for software releases wherein any code commit that passes the automated testing phase is automatically released into the production environment, making changes that are visible to the software's users.
+
 In the CD stage, the generated artifact "notebook" will be deployed to Azure Databricks and the artifact "adf-pipeline" will be deployed to Azure Data Factory. Please note that we can deploy those artifacts into different Azure Databricks and Azure Data Factory environments by inputing different parameters defined in Azure DevOps Variable Group.
 This feature can be used to implement an A/B testing environment by providing different datasets, libraries, algorithms, tuning methods for training different machine learning models.  
 ## Secured connections
-Since we will integration Azure DevOps, Azure Data Factory, Azure Databricks and Azure Blob Storage together, we need to use Azure Databricks personal access token (PAT), Azure Blob Storage access keys. The best solution is to have these secret tokens or keys stored in Azure Key Vault. Why? Because Azure Key Vault can help us securely store and manage sensitive information such as keys, password, certificates, etc. in a centralized storage which are safeguarded by industry-standard algorithms, key lengths, and even hardware security modules. This prevents information exposure through source code, a common mistake that many developers make. Many developers leave sensitive information such as database connection strings, passwords, private keys, etc. in their source code which when gained by malicious users can result in undesired consequences. Access to a key vault requires proper authentication and authorization and with RBAC, we can have even fine granular control who has what permissions over the sensitive data.
+Since we will integration Azure DevOps, Azure Data Factory, Azure Databricks and Azure Blob Storage together, we need to use Azure Databricks personal access token (PAT), Azure Blob Storage access keys. 
+
+The best solution is to have these secret tokens or keys stored in Azure Key Vault. Why? Because Azure Key Vault can help us securely store and manage sensitive information such as keys, password, certificates, etc. in a centralized storage which are safeguarded by industry-standard algorithms, key lengths, and even hardware security modules. This prevents information exposure through source code, a common mistake that many developers make. Many developers leave sensitive information such as database connection strings, passwords, private keys, etc. in their source code which when gained by malicious users can result in undesired consequences. Access to a key vault requires proper authentication and authorization and with RBAC, we can have even fine granular control who has what permissions over the sensitive data.
+
 Within Azure DevOps, we can ceate Variable Groups which contain variables linking to secrets from Azure Key Vaults. In this way, these secret tokens and keys can be used through variables in Azure DevOps pipelines, rather than being input into the source code with sensitive information.
+
 In order to make Azure Data Factory able to access Azure Blob Storage and Azure Databricks, we need to create linked services which are able to connect to Azure Key Vault to get storage access key and Azure Databricks PAT.
-Also, Azure Databricks need to configure its secure scope for the Azure Key Vault, to make sure its notebook files are able to access the blob storage.
+
+Additionally, Azure Databricks needs to configure its secure scope for the Azure Key Vault, to make sure its notebook files are able to access the blob storage.
+
 Meanwhile, 'Get' and 'List' access policies for the Azure Data Factory and Azure Databricks need to be set for the Azure Key Vault. 
 ## Future improvement
 If you want to build an end to end machine learning pipeline, you can consider another better solution, which is using Azure Data Factory "Machine Learning" activity to execute an Azure Machine Learning pipeline that will handle the steps such as model training, model evaluation and registration. 
