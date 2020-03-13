@@ -1,4 +1,31 @@
 # Setting up a CI/CD data pipeline based on Azure DevOps, Azure Data Factory and Azure Databricks
+<!-- TOC -->
+
+- [Setting up a CI/CD data pipeline based on Azure DevOps, Azure Data Factory and Azure Databricks](#setting-up-a-cicd-data-pipeline-based-on-azure-devops-azure-data-factory-and-azure-databricks)
+- [Introduction](#introduction)
+- [Technology stack](#technology-stack)
+    - [Azure DevOps](#azure-devops)
+    - [Azure Data Factory](#azure-data-factory)
+    - [Azure Databricks](#azure-databricks)
+    - [Azure Blob Storage](#azure-blob-storage)
+    - [Azure Key Vault](#azure-key-vault)
+- [Architecture](#architecture)
+    - [Version control](#version-control)
+    - [Continueous Integration](#continueous-integration)
+    - [Contineous Deployment](#contineous-deployment)
+    - [Secured connections](#secured-connections)
+    - [Future improvement](#future-improvement)
+- [Get started with the sample project](#get-started-with-the-sample-project)
+    - [Preparation](#preparation)
+        - [Azure account](#azure-account)
+        - [Azure DevOps](#azure-devops-1)
+    - [Provision](#provision)
+    - [Deploy](#deploy)
+    - [Integration test](#integration-test)
+    - [Summary](#summary)
+- [References](#references)
+
+<!-- /TOC -->
 # Introduction 
 In this article, we'll setup a data pipeline using Azure DevOps, Azure Data Factory and Azure Databricks. This data pipeline can be used not only as a part of the end to end machine learning pipeline, but also as a base for an A/B testing solution. 
 
