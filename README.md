@@ -11,8 +11,8 @@
     - [Azure Key Vault](#azure-key-vault)
 - [Architecture](#architecture)
     - [Version control](#version-control)
-    - [Continueous Integration](#continueous-integration)
-    - [Contineous Deployment](#contineous-deployment)
+    - [Continuous Integration](#continuous-integration)
+    - [Continuous Deployment](#continuous-deployment)
     - [Secured connections](#secured-connections)
     - [Future improvement](#future-improvement)
 - [Get started with the sample project](#get-started-with-the-sample-project)
@@ -32,7 +32,7 @@ In this article, we'll setup a data pipeline using Azure DevOps, Azure Data Fact
 # Technology stack
 The following Azure services are to be used to implement the data pipeline.
 ## Azure DevOps
-Azure DevOps provides developer services to support teams to plan work, collaborate on code development, and build and deploy applications. Developers can work in the cloud using Azure DevOps Services or on-premises using Azure DevOps Server. Here we'll use Azure DevOps Services in the cloud. More specificlly, the following services provided by Azure DevOps will be used for setting up the solution:
+Azure DevOps provides developer services to support teams to plan work, collaborate on code development, and build and deploy applications. Developers can work in the cloud using Azure DevOps Services or on-premises using Azure DevOps Server. Here we'll use Azure DevOps Services in the cloud. More specifically, the following services provided by Azure DevOps will be used for setting up the solution:
 - **Azure Repos** provides Git repositories for source control of your code
 - **Azure Pipelines** provides build and release services to support continuous integration and delivery of your apps
 - **Azure Artifacts** allows teams to share Maven, npm, and NuGet packages from public and private sources and integrate package sharing into your CI/CD pipelines
@@ -57,11 +57,11 @@ The second activity, "Databricks Notebook" will activate a Jupyter Notebook file
 
 On Azure Databricks, we can use Jupyter Notebook files to prepare the data, train a machine learning model and consume it. 
 
-The pipeline can also be extended by adding more activities in order to do more data processing jobs. 
+The pipeline can also be extended by adding more activities to do more data processing jobs. For instance, as the diagram shows, we can add a "Machine Learning Execute Pipeline Activity" to trigger an Azure Machine Learning pipeline to train, evaluate and register a machine learning model. 
 
 Azure Repos works for source code version control. 
 
-Azure Pipelines implements CI/CD pipelines for this use case. Starting from an Azure Resource Group for 'Development', if needed, Azure Pipelines can help quickly deploy another Azure Resource Group for 'Test' or 'Production' by using different versions of variables and parameters.
+Azure Pipelines implements CI/CD pipelines for this use case. Starting from an Azure Resource Group for "Development", if needed, Azure Pipelines can help quickly deploy another Azure Resource Group for "Test" or "Production" by using different versions of variables and parameters.
 
 ## Version control
 Azure Repos is used for the source file version control.
@@ -69,23 +69,23 @@ Azure Repos is used for the source file version control.
 Azure Data Factory can be integrated with an Azure Repos Git organization repository for source control, collaboration, versioning, and so on. In order to do version control of Azure Data Factory pipelines, we can create a development data factory configured with Azure Repos Git, allowing relevant developers to author Azure Data Factory resources like pipelines and datasets. The developers can make changes in their feature branches and create a pull request from their feature branch to the master or collaboration branch to get their changes reviewed by peers. After a pull request is approved and changes are merged in the master branch, the changes can be published as Azure Resource Manager templates to "adf-publish" branch in the development factory.
 
 Also, Git version control can be enabled for the Jupyter Notebook files running on Azure Databricks.
-## Continueous Integration
+## Continuous Integration
 Continuous integration (CI) is a development practice where developers integrate code into a shared repository frequently, preferably several times a day.
 
 The sample project doesn't include the process of code linting and unit tests which can be done by using flake8 and pytest.
 
 In the CI stage of this sample, the pipeline "checkout" the notebook file and publish it as an artifact named "notebook". In the meantime, the Azure Data Factory pipeline Resource Manager templates are also checked out through "adf_publish" branch and published as "adf-pipelines" artifact. Those two artifacts will be used by the following steps. 
-## Contineous Deployment
+## Continuous Deployment
 Continuous deployment (CD) is a strategy for software releases wherein any code commit that passes the automated testing phase is automatically released into the production environment, making changes that are visible to the software's users.
 
-In the CD stage, the generated artifact "notebook" will be deployed to Azure Databricks and the artifact "adf-pipeline" will be deployed to Azure Data Factory. Please note that we can deploy those artifacts into different Azure Databricks and Azure Data Factory environments by inputing different parameters defined in Azure DevOps Variable Group.
+In the CD stage, the generated artifact "notebook" will be deployed to Azure Databricks and the artifact "adf-pipeline" will be deployed to Azure Data Factory. Please note that we can deploy those artifacts into different Azure Databricks and Azure Data Factory environments by inputting different parameters defined in Azure DevOps Variable Group.
 This feature can be used to implement an A/B testing environment by providing different datasets, libraries, algorithms, tuning methods for training different machine learning models.  
 ## Secured connections
 Since we will integration Azure DevOps, Azure Data Factory, Azure Databricks and Azure Blob Storage together, we need to use Azure Databricks personal access token (PAT), Azure Blob Storage access keys. 
 
 The best solution is to have these secret tokens or keys stored in Azure Key Vault. Why? Because Azure Key Vault can help us securely store and manage sensitive information such as keys, password, certificates, etc. in a centralized storage which are safeguarded by industry-standard algorithms, key lengths, and even hardware security modules. This prevents information exposure through source code, a common mistake that many developers make. Many developers leave sensitive information such as database connection strings, passwords, private keys, etc. in their source code which when gained by malicious users can result in undesired consequences. Access to a key vault requires proper authentication and authorization and with RBAC, we can have even fine granular control who has what permissions over the sensitive data.
 
-Within Azure DevOps, we can ceate Variable Groups which contain variables linking to secrets from Azure Key Vaults. In this way, these secret tokens and keys can be used through variables in Azure DevOps pipelines, rather than being input into the source code with sensitive information.
+Within Azure DevOps, we can create Variable Groups which contain variables linking to secrets from Azure Key Vaults. In this way, these secret tokens and keys can be used through variables in Azure DevOps pipelines, rather than being input into the source code with sensitive information.
 
 In order to make Azure Data Factory able to access Azure Blob Storage and Azure Databricks, we need to create linked services which are able to connect to Azure Key Vault to get storage access key and Azure Databricks PAT.
 
@@ -93,7 +93,8 @@ Additionally, Azure Databricks needs to configure its secure scope for the Azure
 
 Meanwhile, 'Get' and 'List' access policies for the Azure Data Factory and Azure Databricks need to be set for the Azure Key Vault. 
 ## Future improvement
-If you want to build an end to end machine learning pipeline, you can consider another better solution, which is using Azure Data Factory "Machine Learning" activity to execute an Azure Machine Learning pipeline that will handle the steps such as model training, model evaluation and registration. 
+If you want to build an end to end machine learning pipeline, you can consider another better solution, which is to use Azure Data Factory "Machine Learning Execute Pipeline" activity to run an Azure Machine Learning pipeline that handles the steps such as model training, model evaluation and registration. Then Azure Pipelines can be used for orchistrating deploying the model in Azure Container Instance, Azure WebApp or Azure Kubernetes Service.
+[MLOps with Azure ML](https://github.com/Microsoft/MLOpsPython) is a highly recommended open source project for you to start that kind of work.   
 
 # Get started with the sample project
 ## Preparation
@@ -157,5 +158,5 @@ In this article, we introduced how to set up a CI/CD data pipeline using Azure D
 - [Branching policies](https://docs.microsoft.com/ja-jp/azure/devops/repos/git/branch-policies-overview?view=azure-devops&viewFallbackFrom=azdevops)
 - [Continuous integration and delivery in Azure Data Factory](https://docs.microsoft.com/en-us/azure/data-factory/continuous-integration-deployment)
 - [DevOps for a data ingestion pipeline](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-cicd-data-ingestion?view=azure-ml-py)
-- [DevOps In Azure With Databricks And Data Factory
-](https://cloudarchitected.com/2019/04/devops-in-azure-with-databricks-and-data-factory/)
+- [MLOps with Azure ML](https://github.com/Microsoft/MLOpsPython)
+- [DevOps In Azure With Databricks And Data Factory](https://cloudarchitected.com/2019/04/devops-in-azure-with-databricks-and-data-factory/)
