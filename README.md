@@ -27,10 +27,12 @@
 
 <!-- /TOC -->
 # Introduction 
-In this article, we'll setup a data pipeline using Azure DevOps, Azure Data Factory and Azure Databricks. This data pipeline can be used not only as a part of the end to end machine learning pipeline, but also as a base for an A/B testing solution. 
+In this article, we'll setup a data pipeline using Azure DevOps, Azure Data Factory and Azure Databricks. This data pipeline can be used not only as a part of the end to end machine learning pipeline, but also as a base for an A/B testing solution.
+
+Please get the sample project source code [here](https://github.com/gary918/DataPipeline).
 
 # Technology stack
-The following Azure services are to be used to implement the data pipeline.
+The following Azure services are to be used to implement this data pipeline.
 ## Azure DevOps
 Azure DevOps provides developer services to support teams to plan work, collaborate on code development, and build and deploy applications. Developers can work in the cloud using Azure DevOps Services or on-premises using Azure DevOps Server. Here we'll use Azure DevOps Services in the cloud. More specifically, the following services provided by Azure DevOps will be used for setting up the solution:
 - **Azure Repos** provides Git repositories for source control of your code
@@ -103,6 +105,7 @@ Please use the following check list for the prerequisites to run this sample pro
 If you don't have an Azure account, create one for free [here](https://azure.microsoft.com/en-us/free/).
 ### Azure DevOps
 - Create a DevOps project
+- Clone https://github.com/gary918/DataPipeline.git
 - Set up Azure Service Connection named "azure_rm_connection"
 - Create a Variable Group "datapipeline-vg" contains the following variables:
 
