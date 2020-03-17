@@ -55,7 +55,7 @@ As you can see in the diagram of our sample project, we are using Azure Data Fac
 
 In the sample project, "DataPipeline" consists 2 activities, "Copy Data" and "Databricks Notebook". "Copy Data" copies the data from the original storage where the raw data or source data is stored, to Azure Blob Storage. The original storage could be on-premise or cloud storage such as AWS S3. After being copied to Azure Blob Storage, the data can be easily used by the following activities.
 
-The second activity, "Databricks Notebook" will activate a Jupyter Notebook file running on Azure Databricks. The Jupyter Notebook file will access the data copied to Azure Blob Storage and use it to train a simple machine learning model.
+The second activity, "Databricks Notebook" will activate a Jupyter Notebook file running on Azure Databricks. The Jupyter Notebook file will access the data copied to Azure Blob Storage and use it to [train a simple machine learning model](https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f).
 
 On Azure Databricks, we can use Jupyter Notebook files to prepare the data, train a machine learning model and consume it. 
 
