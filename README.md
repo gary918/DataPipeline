@@ -137,7 +137,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 | StorageKey                  |
 
 ## Deploy
-- install DevOps for Azure Databricks extension
+- Install DevOps for Azure Databricks extension
 - Create a new Azure Pipeline using data_pipeline_ci_cd.yml
 
 ## Integration test
