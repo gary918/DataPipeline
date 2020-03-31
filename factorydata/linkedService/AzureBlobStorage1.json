@@ -10,7 +10,7 @@
 					"referenceName": "AzureKeyVault1",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "StorageKey"
+				"secretName": "StorageConnectString"
 			}
 		}
 	}
