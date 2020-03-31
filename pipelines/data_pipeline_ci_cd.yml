@@ -34,7 +34,7 @@ stages:
       artifact: notebooks
     - checkout: git://${{variables['System.TeamProject']}}@adf_publish
     - script: dir $(Build.SourcesDirectory)/$(Build.Repository.Name)
-    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/garyadf
+    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/$(DATA_FACTORY_NAME)
       artifact: adf-pipelines
 - stage: 'CD'
   displayName: 'CD'

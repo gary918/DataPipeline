@@ -91,9 +91,9 @@ Within Azure DevOps, we can create Variable Groups which contain variables linki
 
 In order to make Azure Data Factory able to access Azure Blob Storage and Azure Databricks, we need to create linked services which are able to connect to Azure Key Vault to get storage access key and Azure Databricks PAT.
 
-Additionally, Azure Databricks needs to configure its secure scope for the Azure Key Vault, to make sure its notebook files are able to access the blob storage.
+Additionally, Azure Databricks needs to configure its secret scope for the Azure Key Vault, to make sure its notebook files are able to access the blob storage. 
 
-Meanwhile, 'Get' and 'List' access policies for the Azure Data Factory and Azure Databricks need to be set for the Azure Key Vault. 
+Meanwhile, "Get" and "List" access policies for the Azure Data Factory and Azure Databricks need to be set for the Azure Key Vault. 
 ## Future improvement
 If you want to build an end to end machine learning pipeline, you can consider another better solution, which is to use Azure Data Factory "Machine Learning Execute Pipeline" activity to run an Azure Machine Learning pipeline that handles the steps such as model training, model evaluation and registration. Then Azure Pipelines can be used for orchistrating deploying the model in Azure Container Instance, Azure WebApp or Azure Kubernetes Service.
 [MLOps with Azure ML](https://github.com/Microsoft/MLOpsPython) is a highly recommended open source project for you to start that kind of work.   
@@ -125,7 +125,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 ## Provision
 - Use Azure Portal or PowerShell scripts to provision the following resources in a Azure Resource Group.
     - Azure Blob Storage
-    - Azure Databricks
+    - Azure Databricks. Please refer to [this document](https://docs.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes) to create a secret scope named "testscope" within the Azure Databricks workspace.
     - Azure Key Vault
     - Azure Data Factory 
 - Create a Variable Group "keys-vg" contains the following variables linking to the secrets in the Azure Key Vault:
@@ -139,6 +139,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 ## Deploy
 - Install DevOps for Azure Databricks extension
 - Create a new Azure Pipeline using data_pipeline_ci_cd.yml
+- Run this Azure Pipeline
 
 ## Integration test
 - Create a new Azure Pipeline using data_pipeline_test.yml
