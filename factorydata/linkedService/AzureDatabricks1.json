@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureDatabricks",
 		"typeProperties": {
-			"domain": "https://southeastasia.azuredatabricks.net",
+			"domain": "https://eastus.azuredatabricks.net",
 			"accessToken": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
@@ -13,7 +13,7 @@
 				},
 				"secretName": "databricks-token"
 			},
-			"existingClusterId": "0303-104428-mused34"
+			"existingClusterId": "0331-133919-dummy74"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
