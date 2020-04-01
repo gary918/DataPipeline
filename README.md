@@ -111,16 +111,15 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 
 | Variable Name               | Suggested Value                    |
 | --------------------------- | -----------------------------------|
-| LOCATION                    | eastasia                           |
-| RESOURCE_GROUP              | dp_rg                              |
-| DATA_FACTORY_NAME           | dp_adf                             |
-| ADF_PIPELINE_NAME           | DataPipeline                       | 
-| DATABRICKS_NAME             | dp_adb                             |
+| LOCATION                    | [Your resource location]           |
+| RESOURCE_GROUP              | [Your resource group name]         |
+| DATA_FACTORY_NAME           | [Azure Data Factory name]          |
+| ADF_PIPELINE_NAME           | [Azure Data Factory Pipeline name] | 
+| DATABRICKS_NAME             | [Azure Databricks name]            |
 | AZURE_RM_CONNECTION         | azure_rm_connection                |
-| DATABRICKS_URL              | [Your Azure Databricks URL]        |
-| STORAGE_ACCOUNT_NAME        | [Your Storage Account Name]        |
-| STORAGE_CONTAINER_NAME      | [Your Storage Container Name]      |
-
+| DATABRICKS_URL              | [Azure Databricks URL]             |
+| STORAGE_ACCOUNT_NAME        | [Storage Account Name]             |
+| STORAGE_CONTAINER_NAME      | [Storage Container Name]           |
 
 ## Provision
 - Use Azure Portal or PowerShell scripts to provision the following resources in a Azure Resource Group.
