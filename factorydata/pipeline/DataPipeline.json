@@ -7,7 +7,7 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "CopyData",
+						"activity": "transformData",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -24,10 +24,7 @@
 				"typeProperties": {
 					"notebookPath": "/Shared/mynotebook",
 					"baseParameters": {
-						"input": {
-							"value": "@pipeline().parameters.datafile",
-							"type": "Expression"
-						},
+						"input": "transformed.csv",
 						"storage_account_name": {
 							"value": "@variables('storage_account_name')",
 							"type": "Expression"
@@ -94,6 +91,44 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "transformData",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "CopyData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Shared/transformData",
+					"baseParameters": {
+						"storage_account_name": {
+							"value": "@variables('storage_account_name')",
+							"type": "Expression"
+						},
+						"storage_container_name": {
+							"value": "@variables('storage_container_name')",
+							"type": "Expression"
+						},
+						"storage_container_target_name": "prepareddata"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
@@ -104,8 +139,7 @@
 		},
 		"variables": {
 			"storage_account_name": {
-				"type": "String",
-				"defaultValue": "garywangea"
+				"type": "String"
 			},
 			"storage_container_name": {
 				"type": "String",
