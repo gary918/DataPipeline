@@ -114,7 +114,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 | LOCATION                    | [Your resource location]           |
 | RESOURCE_GROUP              | [Your resource group name]         |
 | DATA_FACTORY_NAME           | [Azure Data Factory name]          |
-| ADF_PIPELINE_NAME           | [Azure Data Factory Pipeline name] | 
+| ADF_PIPELINE_NAME           | DataPipeline | 
 | DATABRICKS_NAME             | [Azure Databricks name]            |
 | AZURE_RM_CONNECTION         | azure_rm_connection                |
 | DATABRICKS_URL              | [Azure Databricks URL]             |
@@ -123,7 +123,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 
 ## Provision
 - Use Azure Portal or PowerShell scripts to provision the following resources in a Azure Resource Group.
-    - Azure Blob Storage
+    - Azure Blob Storage. In addition, create 2 containers with the names: 1) "rawdata", 2) "prepareddata"
     - Azure Databricks. Please refer to [this document](https://docs.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes) to create a secret scope named "testscope" within the Azure Databricks workspace.
     - Azure Key Vault
     - Azure Data Factory 
@@ -136,7 +136,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 | StorageKey                  |
 
 ## Deploy
-- Install DevOps for Azure Databricks extension
+- Install DevOps for Azure Databricks extension (https://marketplace.visualstudio.com/items?itemName=riserrad.azdo-databricks)
 - Create a new Azure Pipeline using data_pipeline_ci_cd.yml
 - Run this Azure Pipeline
 
