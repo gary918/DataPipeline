@@ -1,3 +1,5 @@
+# Databricks notebook source
+import pickle
 import pandas as pd  
 import numpy as np  
 import matplotlib.pyplot as plt  
@@ -7,7 +9,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
 dbutils.widgets.text("input", "","")
-datafile = dbutils.widgets.get("input")
+#datafile = dbutils.widgets.get("input")
+datafile = "transformed.csv"
 storage_account_name = getArgument("storage_account_name")
 storage_container_name = getArgument("storage_container_name")
 
@@ -19,8 +22,6 @@ if not any(mount.mountPoint == mount_point for mount in dbutils.fs.mounts()):
     extra_configs = {"fs.azure.account.key."+storage_account_name+".blob.core.windows.net":dbutils.secrets.get(scope = "testscope", key = "StorageKey")})
 
 dataset = pd.read_csv("/dbfs/"+mount_point+"/"+datafile) 
-#df = spark.read.text(mount_point+"/"+datafile)
-#df.describe()
 X = dataset['MinTemp'].values.reshape(-1,1)
 y = dataset['MaxTemp'].values.reshape(-1,1)
 
@@ -33,3 +34,11 @@ print("Model trained.")
 print("Regressor intercept: %f" % regressor.intercept_)
 #For retrieving the slope:
 print("Regressor coef: %f" % regressor.coef_)
+
+filepath_to_save = '/dbfs' + mount_point + '/regression.pkl'
+
+s = pickle.dump(regressor, open(filepath_to_save, "wb"))
+
+
+# COMMAND ----------
+

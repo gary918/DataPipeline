@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "MyNotebook",
+				"name": "traindata",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
@@ -22,7 +22,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Shared/mynotebook",
+					"notebookPath": "/Shared/traindata",
 					"baseParameters": {
 						"input": "transformed.csv",
 						"storage_account_name": {
@@ -139,7 +139,8 @@
 		},
 		"variables": {
 			"storage_account_name": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "mlops3blob"
 			},
 			"storage_container_name": {
 				"type": "String",
