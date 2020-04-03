@@ -22,7 +22,7 @@ df = spark.read.format("csv")\
 # transform the dataframe and keep only the 2 columns that are needed for this model training
 df = df.select('MinTemp','MaxTemp')
 filepath_to_save = '/dbfs' + mount_point + '/transformed.csv'
-df.toPandas().to_csv(filepath_to_save)
+df.toPandas().to_csv(filepath_to_save,mode = 'w', index=False)
 
 
 # COMMAND ----------

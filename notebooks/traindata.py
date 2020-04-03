@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 
-dbutils.widgets.text("input", "","")
+#dbutils.widgets.text("input", "","")
 #datafile = dbutils.widgets.get("input")
 datafile = "transformed.csv"
 storage_account_name = getArgument("storage_account_name")
