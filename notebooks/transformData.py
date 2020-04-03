@@ -1,4 +1,5 @@
 # Databricks notebook source
+dbutils.widgets.text("input", "","")
 datafile = dbutils.widgets.get("input")
 #datafile = "sample.csv"
 storage_account_name = getArgument("storage_account_name")
