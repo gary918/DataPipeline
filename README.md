@@ -114,7 +114,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 | LOCATION                    | [Your resource location]           |
 | RESOURCE_GROUP              | [Your resource group name]         |
 | DATA_FACTORY_NAME           | [Azure Data Factory name]          |
-| ADF_PIPELINE_NAME           | [Azure Data Factory Pipeline name] | 
+| ADF_PIPELINE_NAME           | DataPipeline                       | 
 | DATABRICKS_NAME             | [Azure Databricks name]            |
 | AZURE_RM_CONNECTION         | azure_rm_connection                |
 | DATABRICKS_URL              | [Azure Databricks URL]             |
