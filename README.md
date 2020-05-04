@@ -53,11 +53,11 @@ Figure 1. Architecture</p>
 
 As you can see in the diagram of our sample project, we are using Azure Data Factory pipeline ("DataPipeline") to coordinate the activities for data ingestion and data preparation. The Azure Data Factory pipeline can be triggered manually or by pre-defined triggers (Schedule, Tumbling Window or Event). Also, Azure Pipeline can trigger the Azure Data Factory pipeline if the conditions are met.
 
-In the sample project, "DataPipeline" consists 2 activities, "Copy Data" and "Databricks Notebook". "Copy Data" copies the data from the original storage where the raw data or source data is stored, to Azure Blob Storage. The original storage could be on-premise or cloud storage such as AWS S3. After being copied to Azure Blob Storage, the data can be easily used by the following activities.
+In the sample project, "DataPipeline" consists 3 activities: "Copy Data", "Transformation" and "Model training & scoring". "Copy Data" copies the data from the original storage where the raw data or source data is stored, to Azure Blob Storage. The original storage could be on-premise or cloud storage such as AWS S3. After being copied to Azure Blob Storage, the data can be easily used by the following activities.
 
-The second activity, "Databricks Notebook" will activate a Jupyter Notebook file running on Azure Databricks. The Jupyter Notebook file will access the data copied to Azure Blob Storage and use it to [train a simple machine learning model](https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f).
+The second activity, "Transformation" will activate a Jupyter Notebook file running on Azure Databricks. The notebook file accesses the data copied to Azure Blob Storage, transforms the oringial data by keeping only the 2 columns that are needed for the model training.
 
-On Azure Databricks, we can use Jupyter Notebook files to prepare the data, train a machine learning model and consume it. 
+The third activity, "Model training & scoring" will also run a Jupyter Notebook file which uses the transformed data to [train and score a simple machine learning model](https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f).
 
 The pipeline can also be extended by adding more activities to do more data processing jobs. For instance, as the diagram shows, we can add a "Machine Learning Execute Pipeline Activity" to trigger an Azure Machine Learning pipeline to train, evaluate and register a machine learning model. 
 
