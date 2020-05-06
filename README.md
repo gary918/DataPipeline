@@ -47,7 +47,9 @@ Azure Blob storage is Microsoft's object storage solution for the cloud. Blob st
 ## Azure Key Vault
 Azure Key Vault is a tool for securely storing and accessing secrets. A secret is anything that you want to tightly control access to, such as API keys, passwords, or certificates. A vault is a logical group of secrets.
 # Architecture
-<div align="center"><img src="images/architecture.PNG" alt="architecture"></div>
+<div style="align: center">
+<img src="images/architecture.PNG" alt="architecture">
+</div>
 
 <p style="text-align: center;">Figure 1. Architecture</p>
 
