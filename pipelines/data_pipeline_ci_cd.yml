@@ -34,7 +34,7 @@ stages:
       artifact: notebooks
     - checkout: git://${{variables['System.TeamProject']}}@adf_publish
     - script: dir $(Build.SourcesDirectory)/$(Build.Repository.Name)
-    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/$(DATA_FACTORY_NAME)
+    - publish: $(Build.SourcesDirectory)/$(Build.Repository.Name)/$(DATA_FACTORY_DEV_NAME)
       artifact: adf-pipelines
 - stage: 'CD'
   displayName: 'CD'
@@ -81,6 +81,6 @@ stages:
                 location: $(LOCATION)
                 csmFile: '$(Pipeline.Workspace)/adf-pipelines/ARMTemplateForFactory.json'
                 csmParametersFile: '$(Pipeline.Workspace)/adf-pipelines/ARMTemplateParametersForFactory.json'
-                overrideParameters: -factoryName "$(DATA_FACTORY_NAME)"
+                overrideParameters: -factoryName "$(DATA_FACTORY_TEST_NAME)"
                                     -DataPipeline_properties_variables_storage_account_name_defaultValue "$(STORAGE_ACCOUNT_NAME)"
                                     -DataPipeline_properties_variables_storage_container_name_defaultValue "$(STORAGE_CONTAINER_NAME)"

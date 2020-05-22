@@ -30,5 +30,5 @@ stages:
           inputs:
             azureSubscription: $(AZURE_RM_CONNECTION)
             ScriptPath: '$(Build.SourcesDirectory)/scripts/Invoke-ADFPipeline.ps1'
-            ScriptArguments: '-ResourceGroupName $(RESOURCE_GROUP) -DataFactoryName $(DATA_FACTORY_NAME) -PipelineName $(ADF_PIPELINE_NAME)'
+            ScriptArguments: '-ResourceGroupName $(RESOURCE_GROUP) -DataFactoryName $(DATA_FACTORY_TEST_NAME) -PipelineName $(ADF_PIPELINE_NAME)'
             azurePowerShellVersion: LatestVersion

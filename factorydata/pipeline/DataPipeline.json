@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "traindata",
+				"name": "TransformData",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "transformData",
+						"activity": "CopyData",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -22,9 +22,12 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Shared/traindata",
+					"notebookPath": "/Shared/transformData",
 					"baseParameters": {
-						"input": "transformed.csv",
+						"input": {
+							"value": "@pipeline().parameters.datafile",
+							"type": "Expression"
+						},
 						"storage_account_name": {
 							"value": "@variables('storage_account_name')",
 							"type": "Expression"
@@ -93,11 +96,11 @@
 				]
 			},
 			{
-				"name": "transformData",
+				"name": "TrainModel",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "CopyData",
+						"activity": "TransformData",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -112,8 +115,12 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Shared/transformData",
+					"notebookPath": "/Shared/traindata",
 					"baseParameters": {
+						"input": {
+							"value": "@pipeline().parameters.datafile",
+							"type": "Expression"
+						},
 						"storage_account_name": {
 							"value": "@variables('storage_account_name')",
 							"type": "Expression"
@@ -121,8 +128,7 @@
 						"storage_container_name": {
 							"value": "@variables('storage_container_name')",
 							"type": "Expression"
-						},
-						"storage_container_target_name": "prepareddata"
+						}
 					}
 				},
 				"linkedServiceName": {
@@ -140,7 +146,7 @@
 		"variables": {
 			"storage_account_name": {
 				"type": "String",
-				"defaultValue": "mlops3blob"
+				"defaultValue": "garywasa"
 			},
 			"storage_container_name": {
 				"type": "String",
@@ -148,5 +154,6 @@
 			}
 		},
 		"annotations": []
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
