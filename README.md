@@ -130,8 +130,9 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
     - Azure Databricks. Please refer to [this document](https://docs.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes) to create a secret scope named "testscope" within the Azure Databricks workspace.
     - Azure Key Vault
     - Create Azure Data Factory (ADF dev) by using the name of DATA_FACTORY_DEV_NAME
-    - Configure git for ADF dev with filling the 'root directory' to '/factorydata'
-    - Check the imported pipeline and verify the defined linked services in ADF dev
+        - Configure git for ADF dev with filling the 'root directory' to '/factorydata'
+        - Check the imported pipeline and verify the defined linked services in ADF dev
+        - Set the access policies for Azure Key Vault for ADF dev if needed
     - Create Azure Data Factory (ADF test) by using the name of DATA_FACTORY_TEST_NAME and leave it empty
 - Create a Variable Group "keys-vg" contains the following variables linking to the secrets in the Azure Key Vault:
 
