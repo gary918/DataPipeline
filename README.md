@@ -127,6 +127,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 ## Provision
 - Use Azure Portal or PowerShell scripts to provision the following resources in a Azure Resource Group.
     - Azure Blob Storage. In addition, create 2 containers with the names: 1) "rawdata", 2) "prepareddata"
+        - Upload the /data/sample.csv to "rawdata"
     - Azure Databricks. Please refer to [this document](https://docs.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes) to create a secret scope named "testscope" within the Azure Databricks workspace.
     - Azure Key Vault
     - Create Azure Data Factory (ADF dev) by using the name of DATA_FACTORY_DEV_NAME
