@@ -122,7 +122,7 @@ If you don't have an Azure account, create one for free [here](https://azure.mic
 | AZURE_RM_CONNECTION         | azure_rm_connection                |
 | DATABRICKS_URL              | [Azure Databricks URL]             |
 | STORAGE_ACCOUNT_NAME        | [Storage Account Name]             |
-| STORAGE_CONTAINER_NAME      | [Storage Container Name]           |
+| STORAGE_CONTAINER_NAME      | prepareddata                       |
 
 ## Provision
 - Use Azure Portal or PowerShell scripts to provision the following resources in a Azure Resource Group.
